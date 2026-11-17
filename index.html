@@ -1,17 +1,54 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Aura Spaces | Kitchens and Interiors in Leicester</title>
+    <meta name="description" content="Beautiful, practical kitchens and fitted interiors for UK homes, designed in Leicester by Aura Spaces." />
+    <link rel="canonical" href="https://www.auraspaces.uk/" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="theme-color" content="#141412" />
 
-  <!DOCTYPE html>
-  <html lang="en">
-    
-    <head>
-      <link rel="icon" type="image/png" href="src/assets/39ff422a1c36acfad79feec1c0745f0b8cf79665.png">
-      <meta charset="UTF-8" />
-      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-      <title>Aura Spaces</title>
-    </head>
+    <!-- Preload the homepage day photo (the LCP image) on the homepage only.
+         Keep in step with HERO_IMAGES in src/content/images.ts. Browsers without AVIF skip this. -->
+    <script>
+      if (location.pathname === '/') {
+        var l = document.createElement('link')
+        l.rel = 'preload'
+        l.as = 'image'
+        l.type = 'image/avif'
+        l.setAttribute('imagesrcset', '/images/hero/hero-desktop-day-960.avif 960w, /images/hero/hero-desktop-day-1024.avif 1024w')
+        l.setAttribute('imagesizes', '116vw')
+        l.setAttribute('fetchpriority', 'high')
+        document.head.appendChild(l)
+      }
+    </script>
 
-    <body>
-      <div id="root"></div>
-      <script type="module" src="/src/main.tsx"></script>
-    </body>
-  </html>
-  
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Aura Spaces" />
+    <meta property="og:title" content="Aura Spaces | Kitchens and Interiors in Leicester" />
+    <meta property="og:description" content="Beautiful, practical kitchens and fitted interiors for UK homes, designed in Leicester by Aura Spaces." />
+    <meta property="og:url" content="https://www.auraspaces.uk/" />
+
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "LocalBusiness",
+        "name": "Aura Spaces",
+        "url": "https://www.auraspaces.uk/",
+        "email": "hello@auraspaces.co.uk",
+        "address": {
+          "@type": "PostalAddress",
+          "addressLocality": "Leicester",
+          "addressCountry": "GB"
+        },
+        "areaServed": "United Kingdom"
+      }
+    </script>
+  </head>
+
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>

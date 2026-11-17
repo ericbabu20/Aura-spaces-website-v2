@@ -1,11 +1,29 @@
 
   import { defineConfig } from 'vite';
   import react from '@vitejs/plugin-react-swc';
-  import path from 'path';
+import path from 'path';
+import fs from 'fs';
 
-  export default defineConfig({
-    plugins: [react()],
-    base: './', 
+// Static hosts (such as GitHub Pages) return 404.html for unknown paths. Copying the app shell
+// there lets the router render direct links like /kitchens. Routes still return HTTP 404 on those hosts.
+const spaFallback = () => {
+  let outDir = path.resolve(__dirname, 'dist');
+  return {
+    name: 'spa-404-fallback',
+    configResolved(config: { root: string; build: { outDir: string } }) {
+      outDir = path.resolve(config.root, config.build.outDir);
+    },
+    closeBundle() {
+      const index = path.join(outDir, 'index.html');
+      if (fs.existsSync(index)) fs.copyFileSync(index, path.join(outDir, '404.html'));
+    },
+  };
+};
+
+export default defineConfig({
+  plugins: [react(), spaFallback()],
+  // Root-relative base: required for clean URLs with BrowserRouter on a custom domain.
+  base: '/',
     resolve: {
       extensions: ['.js', '.jsx', '.ts', '.tsx', '.json'],
       alias: {
