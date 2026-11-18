@@ -50,6 +50,15 @@ export const policyPages: Record<'privacy' | 'cookies' | 'terms', PolicyPage> = 
           'You can ask to see, correct or delete the personal information we hold about you. [TO CONFIRM: contact route for requests]',
         ],
       },
+      {
+        heading: 'Aura Portal',
+        paragraphs: [
+          'To be confirmed: what energy data the Aura Portal collects when a household connects an Octopus Energy account.',
+          'To be confirmed: what device data is processed through the household hub and the Aura Portal.',
+          'To be confirmed: how Aura AI conversations are stored, and who can see them.',
+          'To be confirmed: which third-party services process Aura Portal data.',
+        ],
+      },
     ],
   },
   cookies: {
@@ -92,9 +101,9 @@ export const policyPages: Record<'privacy' | 'cookies' | 'terms', PolicyPage> = 
         ],
       },
       {
-        heading: 'Aura Platform',
+        heading: 'Aura Portal',
         paragraphs: [
-          'The Aura Platform is a separate, optional service. [TO CONFIRM: terms for the Aura Platform portal and any third-party services it connects to]',
+          'The Aura Portal is a separate, optional service. To be confirmed: terms for the Aura Portal and any third-party services it connects to.',
         ],
       },
       {

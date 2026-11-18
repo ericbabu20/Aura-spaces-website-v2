@@ -136,7 +136,7 @@ export const aboutCopy = {
   vision: {
     title: 'Our vision',
     text:
-      'We want UK homes to be better designed and to use energy more wisely. That thinking sits behind the Aura Platform, and it is why we plan for future upgrades at the design stage.',
+      'We want UK homes to be better designed and to use energy more wisely. That thinking sits behind the Aura Portal, and it is why we plan for future upgrades at the design stage.',
   },
   founder: {
     title: 'Founder-led',

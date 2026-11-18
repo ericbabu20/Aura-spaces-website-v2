@@ -27,7 +27,10 @@ export function Header() {
         return r.top <= PROBE_Y && r.bottom >= PROBE_Y
       })
       setOverDark(dark)
-      setCompact(window.scrollY > 24)
+      const scrolled = window.scrollY > 80
+      setCompact(scrolled)
+      // Once the bar has collapsed to the logo, the open menu has nothing to hang from.
+      if (scrolled) setMenuOpen(false)
     }
     const schedule = () => {
       if (!frame) frame = requestAnimationFrame(check)
@@ -73,16 +76,16 @@ export function Header() {
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.7, ease: EASE }}
     >
-      {/* `layout` morphs the capsule when it shrinks on scroll; children keep their shape. */}
-      <motion.div layout transition={{ type: 'spring', stiffness: 260, damping: 32 }} className="header-bar glass glass-bar">
-        <motion.span layout="position" className="header-slot">
+      {/* On scroll the capsule shrinks to the logo, the same way the first site did. */}
+      <div className="header-bar glass glass-bar">
+        <span className="header-slot">
         <Link to="/" className="logo" aria-label="Aura Spaces, home">
           <img src={logoLightUrl} alt="" className="logo-img logo-on-dark" />
           <img src={logoDarkUrl} alt="" className="logo-img logo-on-light" />
         </Link>
-        </motion.span>
+        </span>
 
-        <motion.nav layout="position" className="nav-links" aria-label="Main">
+        <nav className="nav-links" aria-label="Main" aria-hidden={compact && !menuOpen}>
           {primaryNav.map((item) => (
             <NavLink
               key={item.to}
@@ -92,9 +95,9 @@ export function Header() {
               {item.label}
             </NavLink>
           ))}
-        </motion.nav>
+        </nav>
 
-        <motion.div layout="position" className="header-actions">
+        <div className="header-actions" aria-hidden={compact && !menuOpen}>
           <ButtonLink to={headerCta.to} variant={dark ? 'paper' : 'primary'} className="header-cta">
             {headerCta.label}
           </ButtonLink>
@@ -108,8 +111,8 @@ export function Header() {
           >
             <span className="menu-lines" aria-hidden="true" />
           </button>
-        </motion.div>
-      </motion.div>
+        </div>
+      </div>
     </motion.header>
 
     {/* The menu sits outside the header. A backdrop blur on the header would otherwise

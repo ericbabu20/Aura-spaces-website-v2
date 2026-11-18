@@ -6,7 +6,7 @@ type PromoWindow = Window & { __tl?: { play: () => void; pause: () => void } }
 
 // The promo loads only when it scrolls into view, and its space is reserved beforehand so
 // nothing shifts. Phones get the 9:16 layout. Reduced-motion users get a play button instead of autoplay.
-export function PromoEmbed() {
+export function PromoEmbed({ cut = false }: { cut?: boolean }) {
   const frameRef = useRef<HTMLDivElement>(null)
   const iframeRef = useRef<HTMLIFrameElement>(null)
   const [inView, setInView] = useState(false)
@@ -48,7 +48,11 @@ export function PromoEmbed() {
   }, [])
 
   const loadNow = reduce ? started : inView
-  const src = `${siteConfig.promoPath}${vertical ? '?format=vertical' : ''}`
+  const params = new URLSearchParams()
+  if (vertical) params.set('format', 'vertical')
+  if (cut) params.set('cut', '15')
+  const query = params.toString()
+  const src = `${siteConfig.promoPath}${query ? `?${query}` : ''}`
 
   const togglePlayback = () => {
     const win = iframeRef.current?.contentWindow as PromoWindow | null | undefined
@@ -65,13 +69,13 @@ export function PromoEmbed() {
         {loadNow ? (
           <iframe
             ref={iframeRef}
-            title="Aura Platform promo animation showing energy use and home devices"
+            title="Aura Portal promo animation showing energy use and home devices"
             src={src}
           />
         ) : reduce ? (
           <button type="button" className="promo-poster" onClick={() => setStarted(true)}>
             <span className="promo-play" aria-hidden="true">▶</span>
-            <span>Play the Aura Platform animation</span>
+            <span>Play the Aura Portal animation</span>
           </button>
         ) : null}
       </div>

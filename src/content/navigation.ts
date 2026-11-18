@@ -4,7 +4,7 @@ export const primaryNav = [
   { label: 'Kitchens', to: '/kitchens' },
   { label: 'Interiors', to: '/interiors' },
   { label: 'Refurbishment', to: '/refurbishment' },
-  { label: 'Aura Platform', to: '/platform' },
+  { label: 'Aura Portal', to: '/portal' },
   { label: 'About', to: '/about' },
 ] as const
 

@@ -9,7 +9,7 @@ import HomePage from './pages/HomePage'
 import InteriorsPage from './pages/InteriorsPage'
 import KitchensPage from './pages/KitchensPage'
 import NotFoundPage from './pages/NotFoundPage'
-import PlatformPage from './pages/PlatformPage'
+import PortalPage from './pages/PortalPage'
 import PolicyPage from './pages/PolicyPage'
 import RefurbishmentPage from './pages/RefurbishmentPage'
 
@@ -24,7 +24,7 @@ export default function App() {
             <Route path="kitchens" element={<KitchensPage />} />
             <Route path="interiors" element={<InteriorsPage />} />
             <Route path="refurbishment" element={<RefurbishmentPage />} />
-            <Route path="platform" element={<PlatformPage />} />
+            <Route path="portal" element={<PortalPage />} />
             <Route path="about" element={<AboutPage />} />
             <Route path="contact" element={<ContactPage />} />
 
@@ -38,7 +38,8 @@ export default function App() {
 
             {/* Redirects from retired or renamed addresses */}
             <Route path="price-estimator" element={<Navigate to="/studio" replace />} />
-            <Route path="smart-living" element={<Navigate to="/platform" replace />} />
+            <Route path="platform" element={<Navigate to="/portal" replace />} />
+            <Route path="smart-living" element={<Navigate to="/portal" replace />} />
             <Route path="aura-furniture" element={<Navigate to="/furniture" replace />} />
             <Route path="aura-decor" element={<Navigate to="/decor" replace />} />
 

@@ -4,11 +4,13 @@ import { siteConfig } from '../../config/site.config'
 import { contactCopy } from '../../content/pages'
 
 export const PROJECT_TYPES = ['Kitchen', 'Fitted interiors', 'Refurbishment', 'Not sure yet'] as const
+// Shown on the contact form, not on the homepage dock.
+export const FORM_PROJECT_TYPES = [...PROJECT_TYPES, 'Aura Portal'] as const
 
-// /contact?project=<slug> preselects the project type (used by the homepage dock).
+// /contact?project=<slug> preselects the project type (used by the homepage dock and the portal page).
 export const PROJECT_PARAM = 'project'
 export const projectSlug = (type: string) => type.toLowerCase().replace(/\s+/g, '-')
-const projectFromSlug = (slug: string | null) => PROJECT_TYPES.find((t) => projectSlug(t) === slug) ?? ''
+const projectFromSlug = (slug: string | null) => FORM_PROJECT_TYPES.find((t) => projectSlug(t) === slug) ?? ''
 
 // Budget is described in words rather than amounts, so the site shows no prices.
 export const BUDGET_OPTIONS = ['Modest', 'Mid-range', 'Larger project', 'Not sure yet'] as const
@@ -62,7 +64,7 @@ export function validate(values: FormValues): Errors {
   if (!UK_POSTCODE_RE.test(values.postcode.trim())) errors.postcode = 'Please enter a valid UK postcode.'
   if (!values.projectType) errors.projectType = 'Please choose a project type.'
   if (!values.budget) errors.budget = 'Please choose an approximate budget.'
-  if (!values.platformInterest) errors.platformInterest = 'Please let us know if you are interested in the Aura Platform.'
+  if (!values.platformInterest) errors.platformInterest = 'Please let us know if you are interested in the Aura Portal.'
   if (values.description.trim().length < 10) errors.description = 'Please tell us a little about your project.'
   if (!values.contactMethod) errors.contactMethod = 'Please choose how you would like us to contact you.'
   if (!values.consent) errors.consent = 'Please agree to the privacy notice so we can respond to you.'
@@ -233,7 +235,7 @@ export function ContactForm() {
             onChange={(e) => update('projectType', e.target.value)}
           >
             <option value="">Choose one</option>
-            {PROJECT_TYPES.map((o) => (
+            {FORM_PROJECT_TYPES.map((o) => (
               <option key={o} value={o}>
                 {o}
               </option>
@@ -262,7 +264,7 @@ export function ContactForm() {
       <div className="field-row">
         <Field
           id="field-platformInterest"
-          label="Interested in the Aura Platform or smart home features?"
+          label="Interested in the Aura Portal or smart home features?"
           error={errors.platformInterest}
           errorId="err-platformInterest"
         >

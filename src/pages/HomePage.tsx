@@ -6,7 +6,7 @@ import { Section } from '../components/common/Section'
 import { SplitHeading } from '../components/common/SplitHeading'
 import { ImageSlot } from '../components/common/ImageSlot'
 import { CtaBand, ProcessList } from '../components/common/Blocks'
-import { PromoEmbed } from '../components/platform/PromoEmbed'
+import { PromoEmbed } from '../components/portal/PromoEmbed'
 import { HomeHero } from '../components/home/HomeHero'
 import { homeCopy } from '../content/home'
 import { IMAGES } from '../content/images'
@@ -15,7 +15,7 @@ import { processSteps, styleDirections } from '../content/shared'
 const styleImages = [IMAGES.styleWarm, IMAGES.styleMinimal, IMAGES.styleShaker]
 
 export default function HomePage() {
-  const { whatWeDo, styles, platform, howItWorks, comingNext, cta } = homeCopy
+  const { whatWeDo, styles, portal, howItWorks, comingNext, cta } = homeCopy
 
   return (
     <>
@@ -55,25 +55,26 @@ export default function HomePage() {
         </div>
       </Section>
 
-      {/* 4. The Aura Platform (dark band; the promo is the only motion here) */}
-      <section className="platform-band" aria-labelledby="platform-title" data-header-tone="dark">
+      {/* 4. The Aura Portal (dark band; the promo is the only motion here) */}
+      <section className="portal-band" aria-labelledby="portal-title" data-header-tone="dark">
         <div className="wrap">
-          <div className="platform-head">
+          <div className="portal-head">
             <Reveal>
-              <span className="eyebrow eyebrow-light">{platform.eyebrow}</span>
+              <span className="eyebrow eyebrow-light">{portal.eyebrow}</span>
             </Reveal>
-            <SplitHeading as="h2" text={platform.title} className="h2" />
+            <SplitHeading as="h2" text={portal.title} className="h2" />
             <Reveal delay={0.2}>
-              <p className="lead lead-light">{platform.text}</p>
+              <p className="lead lead-light">{portal.text}</p>
+              <p className="portal-built">{portal.builtOn}</p>
             </Reveal>
           </div>
           <Reveal delay={0.1}>
             <PromoEmbed />
           </Reveal>
           <Reveal delay={0.2}>
-            <div className="platform-cta">
-              <ButtonLink to={platform.cta.to} variant="light">
-                {platform.cta.label}
+            <div className="portal-cta">
+              <ButtonLink to={portal.cta.to} variant="light">
+                {portal.cta.label}
               </ButtonLink>
             </div>
           </Reveal>

@@ -45,12 +45,13 @@ export const homeCopy = {
     eyebrow: 'Style directions',
     title: 'Spaces that work beautifully.',
   },
-  platform: {
+  portal: {
     eyebrow: 'For smarter homes',
     title: "Your home's energy, finally clear.",
     text:
-      'The Aura Platform shows your electricity and gas use in one place and lets you connect your home devices. It is optional, and it is ready to use today.',
-    cta: { label: 'Explore the Aura Platform', to: '/platform' },
+      'The Aura Portal shows your electricity and gas use in one place and lets you connect your home devices. It is optional, and it is ready to use today.',
+    builtOn: 'Built on Home Assistant, with Aura AI.',
+    cta: { label: 'Explore the Aura Portal', to: '/portal' },
   },
   howItWorks: {
     title: 'From your idea to your new space.',
