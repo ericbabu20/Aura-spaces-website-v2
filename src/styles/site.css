@@ -292,18 +292,15 @@ main {
   line-height: 1.2;
   text-align: center;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
   transition:
     transform 0.5s var(--spring),
-    filter 0.3s,
+    scale 150ms ease-out,
+    filter 150ms ease-out,
     background-color 0.3s,
     color 0.3s,
     border-color 0.3s,
     box-shadow 0.6s var(--ease-out);
-}
-
-.btn:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 14px 28px -18px rgba(42, 43, 36, 0.6);
 }
 
 .btn:disabled {
@@ -319,19 +316,10 @@ main {
   color: var(--paper);
 }
 
-.btn-primary:hover {
-  background: var(--surface);
-}
-
 .btn-secondary {
   background: transparent;
   border: 1px solid rgba(20, 20, 18, 0.55);
   color: var(--ink);
-}
-
-.btn-secondary:hover {
-  border-color: var(--ink);
-  background: rgba(20, 20, 18, 0.05);
 }
 
 .btn-light,
@@ -340,17 +328,10 @@ main {
   color: var(--night);
 }
 
-.btn-light:hover,
-.btn-paper:hover {
-  background: #ffffff;
-  box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.55);
-}
-
-/* Press: a quick squeeze and brighten, then a spring back. */
-.btn:active {
-  transform: scale(0.97);
+/* Press: 0.96 on the scale property, so it composes with the hover lift. Disabled buttons stay still. */
+.btn:not(:disabled):active {
+  scale: 0.96;
   filter: brightness(1.06);
-  transition-duration: 0.12s;
 }
 
 /* ---- Liquid glass ----
@@ -436,11 +417,6 @@ main {
   text-shadow: 0 1px 10px rgba(0, 0, 0, 0.3);
 }
 
-.btn-glass:hover {
-  --g-fill-top: rgba(255, 255, 255, 0.3);
-  --g-fill-bottom: rgba(255, 255, 255, 0.16);
-}
-
 /* No backdrop blur: solid translucent fills, so text contrast never depends on the blur. */
 @supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
   .glass {
@@ -470,6 +446,8 @@ main {
   width: 100%;
   height: 100%;
   object-fit: cover;
+  outline: 1px solid oklch(0 0 0 / 0.1);
+  outline-offset: -1px;
   transition: transform 1.4s var(--ease-out);
 }
 
@@ -624,8 +602,8 @@ main {
   transition: transform 0.5s var(--ease-out);
 }
 
-.nav-links a:hover::after,
-.nav-links a.active::after {
+.nav-links a.active::after,
+.nav-links a:focus-visible::after {
   transform: scaleX(1);
   transform-origin: left;
 }
@@ -662,10 +640,6 @@ main {
   font-size: 15px;
 }
 
-.header-cta:hover {
-  transform: none;
-}
-
 .menu-btn {
   display: none;
   align-items: center;
@@ -678,6 +652,12 @@ main {
   background: transparent;
   color: inherit;
   cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition: scale 150ms ease-out;
+}
+
+.menu-btn:not(:disabled):active {
+  scale: 0.96;
 }
 
 .menu-lines {
@@ -729,6 +709,7 @@ main {
   background: var(--night);
   color: var(--paper);
   overflow-y: auto;
+  overscroll-behavior: contain;
   opacity: 0;
   visibility: hidden;
   transition:
@@ -844,13 +825,6 @@ main {
   align-items: center;
   min-height: 44px;
   font-size: 15px;
-}
-
-.foot-col a:hover,
-.foot-legal a:hover,
-.socials a:hover {
-  text-decoration: underline;
-  text-underline-offset: 4px;
 }
 
 .foot-legal {
@@ -1114,11 +1088,6 @@ main {
   border-radius: var(--radius-md);
   background: var(--cream);
   transition: transform 0.6s var(--ease-out), box-shadow 0.6s var(--ease-out);
-}
-
-.coming-list a:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 18px 36px -26px rgba(42, 43, 36, 0.5);
 }
 
 .coming-name {
@@ -1822,14 +1791,6 @@ main {
   color: inherit;
 }
 
-.panel:hover .img-wrap img {
-  transform: scale(1.03);
-}
-
-.panel:hover .link-arrow {
-  transform: translateX(4px);
-}
-
 .panel-title {
   margin-top: 22px;
 }
@@ -2083,6 +2044,7 @@ main {
 
 .hotspot-dot::after {
   inset: 0;
+  border: 1px solid transparent;
   box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);
   animation: hotspot-pulse 2.6s var(--ease-out) infinite;
 }
@@ -2195,17 +2157,13 @@ main {
   background: var(--night);
   color: var(--paper);
   cursor: pointer;
-  transition: transform 0.5s var(--spring), filter 0.3s;
+  -webkit-tap-highlight-color: transparent;
+  transition: transform 0.5s var(--spring), scale 150ms ease-out, filter 150ms ease-out;
 }
 
-.dock-go:hover {
-  transform: translateX(2px);
-}
-
-.dock-go:active {
-  transform: scale(0.94);
+.dock-go:not(:disabled):active {
+  scale: 0.96;
   filter: brightness(1.25);
-  transition-duration: 0.12s;
 }
 
 /* Phones: a slim booking bar once the hero has scrolled away. */
@@ -2241,6 +2199,80 @@ main {
 
 /* ---------- 5. Pages ---------- */
 /* (Page-specific layout lives in the sections above and in the markup.) */
+
+/* Hover movement and colour only on devices that can actually hover, so a tap does not leave a stuck state. */
+@media (hover: hover) and (pointer: fine) {
+  .btn:hover {
+    box-shadow: 0 14px 28px -18px rgba(42, 43, 36, 0.6);
+  }
+
+  .btn-primary:hover {
+    background: var(--surface);
+  }
+
+  .btn-secondary:hover {
+    border-color: var(--ink);
+    background: rgba(20, 20, 18, 0.05);
+  }
+
+  .btn-light:hover,
+  .btn-paper:hover {
+    background: #ffffff;
+    box-shadow: 0 16px 36px -18px rgba(0, 0, 0, 0.55);
+  }
+
+  .btn-glass:hover {
+    --g-fill-top: rgba(255, 255, 255, 0.3);
+    --g-fill-bottom: rgba(255, 255, 255, 0.16);
+  }
+
+  .header-cta:hover {
+    transform: none;
+    box-shadow: none;
+  }
+
+  .nav-links a:hover::after {
+    transform: scaleX(1);
+    transform-origin: left;
+  }
+
+  .foot-col a:hover,
+  .foot-legal a:hover,
+  .socials a:hover {
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+
+  .coming-list a:hover {
+    box-shadow: 0 18px 36px -26px rgba(42, 43, 36, 0.5);
+  }
+}
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .btn:hover {
+    transform: translateY(-2px);
+  }
+
+  .header-cta:hover {
+    transform: none;
+  }
+
+  .coming-list a:hover {
+    transform: translateY(-3px);
+  }
+
+  .panel:hover .img-wrap img {
+    transform: scale(1.03);
+  }
+
+  .panel:hover .link-arrow {
+    transform: translateX(4px);
+  }
+
+  .dock-go:hover {
+    transform: translateX(2px);
+  }
+}
 
 /* ---------- Motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {
